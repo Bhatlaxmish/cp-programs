@@ -1,0 +1,1 @@
+{"name":"Local: treetodoublelinkedlist","url":"/home/lakshmish/DSA PROGRAMS/treetodoublelinkedlist.cpp","tests":[{"id":1661939297537,"input":"4\n1\n4\n2\n56\n1\n345\n2\n567\n1\n324\n3","output":"4 345 324 567 56 4"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/lakshmish/DSA PROGRAMS/treetodoublelinkedlist.cpp","group":"local","local":true}
