@@ -1,0 +1,208 @@
+            3.2.2 Availability
+It is the ability of the system to deliver services when requested. There is no error in the program while executing.
+
+            3.2.3 Reliability
+The ability of the system to deliver services as specified. The program is compatible with all types of the operating system without any failure.
+
+            3.2.4 Safety
+It is the ability of the system to operate without catastrophic failure. This program is user friendly and it will never affect the system
+
+            3.2.5 Security
+It is the ability of the system to protect itself against accidental or deliberate intrusion.
+
+
+        3.3 SOFTWARE REQUIREMENTS
+The “2D CITY VIEW” Mini-Project has been designed on the WINDOWS operating system shell:
+    • Library: OpenGL (Graphics Library Utility Toolkit)
+
+    • Language: C++ Programming Language
+
+    • Operating System: Windows
+
+    • Text editor: Code Blocks
+
+
+3.3 HARDWARE REQUIREMENTS:
+
+    • Hard disk: 110MB space required, 40 MB additional hard disk space required for installation (150 MB total).
+    • RAM: 1 GB and Above
+
+    • Processor: 1 GHz and Above
+
+    • Display: LCD monitor
+    • Mouse: 2 button mouse
+
+    • Keyboard: Standard QWERTY keyboard
+
+
+
+SUMMARY
+In this chapter, the discussion is mainly about the OpenGL library and functions from these libraries: the main GL library, the OpenGL utility library (GLU), and the OpenGL utility toolkit (GLUT). The project has functional requirements such as display, mouse movement, time, and menu, and non-functional requirements such as dependability, availability, reliability, safety, and security. The software requirements for the project include the use of the Windows operating system, the OpenGL library, the C programming language, the WINDOWS operating system, and the Code Blocks text editor. The hardware requirements for the project include a minimum of 110MB of hard disk space, 1GB of RAM, a 1GHz processor, an LCD monitor, a 2-button mouse, and a standard QWERTY keyboard.
+
+CHAPTER-4
+
+DESIGN
+The  2D CITY VIEW model simulates movement of  cars with clouds and roads.we can see rainmode in night and day mode .we can see movement of clouds in night mode street lights are on and cars headlight are on we can even stop the movement of cars planes clouds rain.
+        4.1 2D CITY VIEW SYSTEM DESIGN
+The main functions used in the design are:
+
+    1. FUNCTIONS USED TO OBJECTS
+
+This class defines the following functions:
+
+        ◦ void road( ): This function is mainly used to create the road
+
+        ◦ Void car ( ) : This function is used to design car.
+
+        ◦ void plane(): This function is used to design plane.
+
+        ◦ void light(): This function is used to display light. 
+
+        ◦ void nightmode(): used to display night mode of 2d city. 
+
+        ◦ void daymode(): This function is used to display daymode 2d city .
+
+        ◦ void tree(): this function is used to design tree. 
+
+    2. CARMOTION()
+
+This function includes forward movement of the car.
+
+    3. CLOUDMOVE()
+
+This function is used to move the clouds.
+
+    4. COVERPAGE()
+
+This function is to draw a cover page to display the information of college and the project.
+    5. DISPLAY()
+
+This function is used to integrate all the functions in one and draw the bus simulation and all the associated structures which includes bus stop, nature, college and woman.
+    6. MENU()
+
+There are two menu functions to allow the user to select the different options available to them. MENU() has both the MOUSE() and KEYBOARD() functions attached to it.
+        ◦ MOUSE()
+
+The functionality of the mouse buttons is defined. Right-mouse click is used to move the bus forward.
+        ◦ KEYBOARD()
+
+It is used to define different actions that can be taken when certain keys are pressed like to move the bus forward and use other functionalities.
+
+        4.2 CONTROLS
+The controls provided in the project are given below:
+
+KEYBOARD CONTROLS
+
+
+    • DAYMODE                  PRESS ‘d’
+    • NIGHT MODE             PRESS ‘n’
+    • CAR MOVING            PRESS ‘c’
+    • RAIN MODE               PRESS ‘r’
+    • NO RAIN                     PRESS ‘e’
+    • HELP                            PRESS ‘h’
+
+
+SUMMARY
+In this chapter, the design of the user interface by all the explaining all functions and the keyboard and mouse controls used in the project is discussed.
+
+
+
+
+                     
+                                      
+                                           FLOWCHART
+
+               
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                                ALGORITHM
+
+Step1 Initialize the graphics window and its size using GLUT functions
+glutInit (&argc, argv);
+ glutInitDisplayMode (GLUT_SINGLE | GLUT_RGB);
+ glutInitWindowSize (1024, 768); glutInitWindowPosition (0, 0);
+ glutCreateWindow ("2D VIEW OF CITY"); myInit ();
+
+ Step 2 Call back functions to get the view and perform specific tasks.
+ glutDisplayFunc (myDisplay);
+ glutKeyboardFunc (keyboard);
+ glutSpecialFunc (SpecialKeys);
+             glutMainLoop ();
+
+
+ Step 3 Implementing the functions (Operations) by pressing keys PRESS ’d’- Day mode. road() , plane() , Clouds() , rainfall() , plane() , fullBuilding(), trees() , lamp() , playground() , car() , truck() . PRESS ‘n’- Night mode. road() , plane() , Clouds() , rainfall() , plane() , fullBuilding(), trees() , lamplight() , playGround() , car() , truck() , lamp() ,otherCircle(). PRESS ‘c’- Car moving. glTranslatef() , glVertex3i(), glBegin(). PRESS ‘r’- Rainfall. rand()- generates rain drop, delay()-to delay movement of vehicle and plane. PRESS ‘e’- Stop the rain. rain() = false; PRESS ‘p’-Plane movement. Translatef() , plane() . PRESS ‘o’-Stop plane movement. plane() = false ; PRESS ‘v’- Stop car movement. car() = false. ARROW KEYS- To move towards left and right side of the screen using glutSpecialFunc(SpecialKeys); GLUT_LEFT_KEY- translate_x+ = 5; GLUT_RIGHT_KEY- translate_x- = 5;
+
+ Step 4 PRESS ‘h’-To go to heplscreen() PRESS ‘ESC’- To terminate the program.
+
+
+
+
+
+
+
+
+
+
+
+
+
+CHAPTER-5
+
+
+
+IMPLEMENTATION
+
+
+Using the C++ programming language and the OpenGL graphics library, this project aims to implementation of 2d city view. The objects are created realistically, and user controls are provided for controlling the movement of cars,planes. To achieve efficient rendering, the project also makes use of memory allocation and display lists.
+
+        5.1 MOVEMENT OF THE CAR,PLANE,CLOUDS:
+The movement of a objects contains the following factors.
+
+The car travels forward on the road the clouds moves in the sky and there is movement of planes along with clouds .we can see movement of this objects both in day and night mode
+
+There are several keys when pressed gives the corresponding output.these are the following keys.daymode -d,nightmode-n ,car moving –c,rain mode-r,norain-e,plane movement-p,help h.these are the keys used for displaying output. 
+
+Blending means that a pixel on the screen isn't replaced by another one, but they are "mixed". Therefore, use the alpha value of colours, it indicates how much of the colour of the consisting pixel is used for the new colour - for antialiasing of points, OpenGL computes this alpha value.
+
+After calling glEnable(GL_BLEND); specify OpenGL how to use the alpha values. It isn't specified, that a higher alpha-value means more transparency or something like that. To tell OpenGL one must use glBlendFunc(). 
+
+
+This is quite an often-used combination and affects, that the higher the alpha value, the less transparency of the incoming fragment.  
+
+[To create a car] Combines multiple functions.
+    • car(): is used to create car.
+    • othercircle(): is used to create car bumper.
+    • light (): used to display car headlight in nightmode.
+
+
+
+[function car_move ()]
+This function increments the value of x which is the position of the car of the car along x-axis when the user presses the arrow key. When we increment the value of x, the car moves in forward direction.
+
+[Displaying] [Keyboard function]
+            ▪ Manages operations by various keys pressed on the key board [Display function]
+            ▪ Renders the program on to the screen. Uses the following functions:
+            ▪ GlClear (GL_COLOUR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT) - Indicates the buffers currently enabled for colour writing and also indicates the depth buffer.
+            ▪ GlPushMatrix ( ), glPopMatrix () - to push and pop the current matrix stack.
+            ▪ glFlush ( ) - force execution of GL commands in finite time.
+            ▪ GlutSwapBuffers ( ) - Swap the buffers -> make the result of rendering visible.
+              
+[reshape function]
+            ▪ glMatrixMode (GL_PROJECTION) - applies subsequent matrix operations to the projection matrix stack.
+            ▪ glMatrix Mode (GL_MODELVIEW)- applies subsequent matrix operations to the model view matrix stack.
+            ▪ Adjust the viewing volume. Use the whole window for rendering and adjust point size to window size.
+
+[main function]
+Specify the initial display mode, window size and position. Create a new window where the output is rendered. Creates a keyboard function so that the bus can be controlled using the arrow keys.

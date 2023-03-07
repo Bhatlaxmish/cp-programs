@@ -1,5 +1,6 @@
 
 #include <bits/stdc++.h>
+#include <iostream>
 using namespace std;
 #define ll long long
 #define mod 1000000007
@@ -195,7 +196,6 @@ int rotateBinary(int number)
     return res;
 }
 
-
 int main()
 {
 
@@ -221,62 +221,5 @@ int main()
     cin >> t;
     while (t--)
     {
-       int n;
-       cin>>n;
-       vector<int>adj[5];
-       for(int i=0;i<n;i++)
-       {
-        int m;
-        cin>>m;
-        for(int j=0;j<m;j++)
-        {
-        int r;
-        cin>>r;
-        adj[i].push_back(r);
         }
-       }
-       int rt=0;
-       for(int i=rt;i<n;i++){
-       vector<bool>visited(5,false);
-for(int k=0;k<adj[i].size();k++)
-{
-    visited[adj[i][k]-1]=true;
 }
-for(int j=0;j<adj[rt+1].size();j++)
-{
-  visited[adj[rt+1][j]-1]=true;  
-}
-int flag=1;
-for(auto x:visited)
-{
-    if(x==0){
-        flag=0;
-        break;
-    }
-}
-if(flag==0)
-{
-
-}
-{
-
-}
-
-       }
-
-
-
-
-
-    }
-}
-
-
-
-
-
-
-
-
-
-

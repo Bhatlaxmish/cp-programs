@@ -1,5 +1,6 @@
 
 #include <bits/stdc++.h>
+#include <iostream>
 using namespace std;
 #define ll long long
 #define mod 1000000007
@@ -195,6 +196,59 @@ int rotateBinary(int number)
     return res;
 }
 
+void dfs(vector<int> adj[], vector<bool> &visited, int i)
+{
+    visited[i] = true;
+    // cout<<i<<" ";
+    for (auto x : adj[i])
+    {
+        if (!visited[x])
+        {
+            dfs(adj, visited, x);
+        }
+    }
+}
+
+void SieveOfEratosthenes(ll int n)
+{
+
+    bool prime[n + 1];
+    memset(prime, true, sizeof(prime));
+
+    for (ll int p = 2; p * p <= n; p++)
+    {
+        if (prime[p] == true)
+        {
+
+            for (ll int i = p * p; i <= n; i += p)
+                prime[i] = false;
+        }
+    }
+}
+bool compi(pair<int, int> v1, pair<int, int> v2)
+{
+    return v1.second < v2.second;
+}
+int upperbound(vector<pair<int, int>> d, int r)
+{
+    ll int low = 0;
+    ll int index = -1;
+    ll int high = d.size();
+    while (low <= high)
+    {
+        ll int mid = (low + high) / 2;
+        if (d[mid].first > r)
+        {
+            index = mid;
+            high = mid - 1;
+        }
+        else
+        {
+            low = mid + 1;
+        }
+    }
+    return index;
+}
 int main()
 {
 
@@ -220,121 +274,41 @@ int main()
     cin >> t;
     while (t--)
     {
+        // https://codeforces.com/problemset/problem/1555/B
+        int n, m;
+        cin >> n >> m;
+        int x1, y1, x2, y2;
+        cin >> x1 >> y1 >> x2 >> y2;
+        int q, p;
+        int sum = 0;
+        cin >> p >> q;
+        if ((n - x2 - x1 < p && p > n) || (m - y2 - y1 < q && q > m))
+        {
+            cout << -1 << "\n";
+       }
+       else {
 
-        int a1, b1, a2, b2;
-        cin >> a1 >> b1 >> a2 >> b2;
-
-        int y = 0, yu = 0, hi = 0, ji = 0;
-        if (a1 == 1)
+        if(n-x2<p)
         {
-            y = 1;
-
-            a1 = 0;
-        }
-
-        else if (a1 != 0)
-        {
-            y = ceil(log(a1) / log(10));
-        }
-        if (pow(10, y) == a1)
-        {
-            y = y + 1;
-        }
-
-        if (a2 == 1)
-        {
-            yu = 1;
-            a2 = 0;
-        }
-
-        else if (a2 != 0)
-        {
-            yu = ceil(log(a2) / log(10));
-        }
-        if (pow(10, yu) == a2)
-        {
-            yu = yu + 1;
-        }
-
-        // cout<<y<<" "<<yu<<"\n";
-        // cout<<y+b1<<" "<<yu+b2<<"\n";
-        if (y + b1 > yu + b2)
-        {
-            cout << '>' << "\n";
-        }
-        else if (y + b1 == yu + b2)
-        {
-            if (y == yu)
+            if(x1<p)
             {
-                if (a1 > a2)
-                {
-                    cout << ">"
-                         << "\n";
-                }
-                else if (a1 == a2)
-                {
-                    cout << '=' << "\n";
-                }
-                else
-                    cout << "<"
-                         << "\n";
+                sum+=p-max(n-x2,x1);
             }
-            else
+
+
+        }
+        if(m-y2<q)
+        {
+            if(y1<q)
             {
-                string we = to_string(a1);
-                string qw = to_string(a2);
-                // cout<<we<<we.size()<<" "<<qw<<qw.size()<<"\n";
-                string pq;
-                int flag = 0;
-                char de;
-                if (a1 < a2)
-                {
-                    pq = qw;
-                    de = '<';
-                }
-                else
-                {
-                    de = '>';
-                    pq = we;
-                }
-
-                for (int i = 0; i < min(we.size(), qw.size()); i++)
-                {
-                    // cout<<i<<"\n";
-                    if (int(we[i]) > int(qw[i]))
-                    {
-                        cout << '>' << "\n";
-                        flag = 1;
-
-                        break;
-                    }
-                    else if (int(we[i]) < int(qw[i]))
-                    {
-                        
-                        cout << '<' << "\n";
-                        flag = 1;
-                        break;
-                    }
-                }
-                if (flag == 0)
-                {
-                    // cout << min(we.size(), qw.size())<<"minimum\n";
-                    for (int j = min(we.size(), qw.size()); j < pq.size(); j++)
-                    {
-                        if (pq[j] != '0')
-                        {
-                            flag = 1;
-                        }
-                    }
-                    if (flag == 1)
-                        cout << de << "\n";
-                    else
-                        cout << "="
-                             << "\n";
-                }
+                sum+=q-max(m-y2,y1);
             }
         }
-        else
-            cout << '<' << "\n";
+        cout<<sum<<"\n";
+       }
+       
+        
+
+        
     }
 }

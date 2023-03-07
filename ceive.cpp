@@ -1,242 +1,262 @@
-// C++ program for leftist heap / leftist tree
+
 #include <bits/stdc++.h>
 using namespace std;
+#define ll long long
+#define mod 1000000007
 
-// Node Class Declaration
-class LeftistNode
+#define powe pow(2, 31)
+ll araisetobwithmod(ll base, ll exp)
 {
-public:
-    int element;
-    LeftistNode *left;
-    LeftistNode *right;
-    int dist;
-    LeftistNode(int &element, LeftistNode *lt = NULL,
-                LeftistNode *rt = NULL, int np = 0)
+    ll result = 1;
+    for (;;)
     {
-        this->element = element;
-        right = rt;
-        left = lt,
-        dist = np;
+        if (exp & 1)
+            result = (result * base) % mod;
+        ;
+        exp >>= 1;
+        if (!exp)
+            break;
+        base = (base * base) % mod;
     }
-};
 
-// Class Declaration
-class LeftistHeap
-{
-public:
-    LeftistHeap();
-    LeftistHeap(LeftistHeap &rhs);
-    ~LeftistHeap();
-    bool isEmpty();
-    bool isFull();
-    int &findMin();
-    void Insert(int &x);
-    void deleteMin();
-    void deleteMin(int &minItem);
-    void makeEmpty();
-    void Merge(LeftistHeap &rhs);
-    LeftistHeap &operator=(LeftistHeap &rhs);
-
-private:
-    LeftistNode *root;
-    LeftistNode *Merge(LeftistNode *h1,
-                       LeftistNode *h2);
-    LeftistNode *Merge1(LeftistNode *h1,
-                        LeftistNode *h2);
-    void swapChildren(LeftistNode *t);
-    void reclaimMemory(LeftistNode *t);
-    LeftistNode *clone(LeftistNode *t);
-};
-
-// Construct the leftist heap
-LeftistHeap::LeftistHeap()
-{
-    root = NULL;
+    return result;
 }
-
-// Copy constructor.
-LeftistHeap::LeftistHeap(LeftistHeap &rhs)
+ll factorialwithmod(ll n)
 {
-    root = NULL;
-    *this = rhs;
+    if (n >= mod)
+        return 0;
+
+    ll result = 1;
+    for (int i = 1; i <= n; i++)
+        result = (result * i) % mod;
+
+    return result;
 }
-
-// Destruct the leftist heap
-LeftistHeap::~LeftistHeap()
+bool isprimeornot(ll n)
 {
-    makeEmpty();
-}
-
-/* Merge rhs into the priority queue.
-rhs becomes empty. rhs must be different
-from this.*/
-void LeftistHeap::Merge(LeftistHeap &rhs)
-{
-    if (this == &rhs)
-        return;
-    root = Merge(root, rhs.root);
-    rhs.root = NULL;
-}
-
-/* Internal method to merge two roots.
-Deals with deviant cases and calls recursive Merge1.*/
-LeftistNode *LeftistHeap::Merge(LeftistNode *h1,
-                                LeftistNode *h2)
-{
-    if (h1 == NULL)
-        return h2;
-    if (h2 == NULL)
-        return h1;
-    if (h1->element < h2->element)
-        return Merge1(h1, h2);
-    else
-        return Merge1(h2, h1);
-}
-
-/* Internal method to merge two roots.
-Assumes trees are not empty, and h1's root contains
-smallest item.*/
-LeftistNode *LeftistHeap::Merge1(LeftistNode *h1,
-                                 LeftistNode *h2)
-{
-    if (h1->left == NULL)
-        h1->left = h2;
-    else
+    if (n == 1)
     {
-        h1->right = Merge(h1->right, h2);
-        if (h1->left->dist < h1->right->dist)
-            swapChildren(h1);
-        h1->dist = h1->right->dist + 1;
+        return false;
     }
-    return h1;
-}
-
-// Swaps t's two children.
-void LeftistHeap::swapChildren(LeftistNode *t)
-{
-    LeftistNode *tmp = t->left;
-    t->left = t->right;
-    t->right = tmp;
-}
-
-/* Insert item x into the priority queue, maintaining
-heap order.*/
-void LeftistHeap::Insert(int &x)
-{
-    root = Merge(new LeftistNode(x), root);
-}
-
-/* Find the smallest item in the priority queue.
-Return the smallest item, or throw Underflow if empty.*/
-int &LeftistHeap::findMin()
-{
-    return root->element;
-}
-
-/* Remove the smallest item from the priority queue.
-Throws Underflow if empty.*/
-void LeftistHeap::deleteMin()
-{
-    LeftistNode *oldRoot = root;
-    root = Merge(root->left, root->right);
-    delete oldRoot;
-}
-
-/* Remove the smallest item from the priority queue.
-Pass back the smallest item, or throw Underflow if empty.*/
-void LeftistHeap::deleteMin(int &minItem)
-{
-    if (isEmpty())
+    ll i = 2;
+    while (i * i <= n)
     {
-        cout << "Heap is Empty" << endl;
-        return;
+        if (n % i == 0)
+        {
+            return false;
+        }
+        i += 1;
     }
-    minItem = findMin();
-    deleteMin();
+    return true;
 }
 
-/* Test if the priority queue is logically empty.
-Returns true if empty, false otherwise*/
-bool LeftistHeap::isEmpty()
+ll araisetob(ll a, ll b)
 {
-    return root == NULL;
+    ll ans = 1;
+    while (b > 0)
+    {
+        if (b & 1)
+        {
+            ans = (ans * 1LL * a);
+        }
+        a = (a * 1LL * a);
+        b >>= 1;
+    }
+    return ans;
 }
-
-/* Test if the priority queue is logically full.
-Returns false in this implementation.*/
-bool LeftistHeap::isFull()
+bool isperfectsquareornot(ll x)
 {
+    if (sqrt(x) * sqrt(x) == x)
+    {
+        return true;
+    }
     return false;
 }
-
-// Make the priority queue logically empty
-void LeftistHeap::makeEmpty()
+bool ispoweroftwoornot(ll n)
 {
-    reclaimMemory(root);
-    root = NULL;
+    if (n == 0)
+        return false;
+
+    return (ceil(log2(n)) == floor(log2(n)));
 }
-
-// Deep copy
-LeftistHeap &LeftistHeap::operator=(LeftistHeap &rhs)
+ll factorial(ll n)
 {
-    if (this != &rhs)
+
+    return (n == 1 || n == (ll)0) ? (ll)1 : n * factorial(n - 1);
+}
+ll maximumsubarraysum(vector<int> a, ll size)
+{
+    ll currmax = -1111111111, until = 0;
+
+    for (ll i = 0; i < size; i++)
     {
-        makeEmpty();
-        root = clone(rhs.root);
-    }
-    return *this;
-}
+        until = until + a[i];
+        if (currmax < until)
+            currmax = until;
 
-// Internal method to make the tree empty.
-void LeftistHeap::reclaimMemory(LeftistNode *t)
+        if (until < 0)
+            until = 0;
+    }
+    return currmax;
+}
+bool ispalindromeornot(string s, ll n)
 {
-    if (t != NULL)
+    ll l = 0;
+    ll h = n - 1;
+    while (h > l)
     {
-        reclaimMemory(t->left);
-        reclaimMemory(t->right);
-        delete t;
+        if (s[l++] != s[h--])
+        {
+
+            return false;
+        }
     }
+    return true;
 }
 
-// Internal method to clone subtree.
-LeftistNode *LeftistHeap::clone(LeftistNode *t)
+ll gcd(ll a, ll b)
 {
-    if (t == NULL)
-        return NULL;
-    else
-        return new LeftistNode(t->element, clone(t->left),
-                               clone(t->right), t->dist);
+    if (b > a)
+    {
+        return gcd(b, a);
+    }
+    if (b == 0)
+    {
+        return a;
+    }
+    return gcd(b, a % b);
 }
 
-// Driver program
+ll araisetobwithmodeasy(ll a, ll b)
+{
+    ll res = 1;
+    while (b > 0)
+    {
+        if (b & 1)
+
+            res = (res * a) % mod;
+        a = (a * a) % mod;
+        b = b >> 1;
+    }
+    return res;
+}
+
+ll ncr(ll n, ll r)
+{
+    if (r > n || n < 0 || r < 0)
+        return 0;
+    vector<ll> fact(n + 1);
+    vector<ll> ifact(n + 1);
+    int i;
+    fact[0] = 1;
+    for (i = 1; i <= n; i++)
+    {
+        fact[i] = i * fact[i - 1] % mod;
+    }
+    i--;
+    ifact[i] = araisetobwithmod(fact[i], mod - 2);
+    for (i--; i >= 0; i--)
+    {
+        ifact[i] = ifact[i + 1] * (i + 1) % mod;
+    }
+    ll val1 = fact[n];
+    ll val2 = ifact[n - r];
+    ll val3 = ifact[r];
+    return (((val1 * val2) % mod) * val3) % mod;
+}
+
+ll countnoofdivisors(int n)
+{
+    ll cnt = 0;
+    for (int i = 1; i * i <= n; i++)
+    {
+        if (n % i == 0)
+        {
+            cnt++;
+            // cout<<i<<" ";
+            if (i != (n / i))
+            {
+                cnt++;
+                // cout<<n/i<<" ";
+            }
+        }
+    }
+    return cnt;
+}
+int rotateBinary(int number)
+{
+    int res = 0;
+    while (number > 0)
+    {
+        res = res << 1;
+        res = res | (number & 1);
+        number = number >> 1;
+    }
+    return res;
+}
+
+int compi(pair<int, int> v3, pair<int, int> v2)
+{
+    return v3.second < v2.second;
+}
+
+void dfs(int i, vector<int> adj[], int visited[])
+{
+    visited[i] = 1;
+    // cout<<i<<"\n";
+    for (auto x : adj[i])
+        if (visited[x] == -1)
+            dfs(x, adj, visited);
+}
+int add(int gs, int count)
+{
+    int to = 0;
+    while (count--)
+    {
+        to = 0;
+        while (gs != 0)
+        {
+            int er = gs % 10;
+            gs = gs / 10;
+            to += er;
+        }
+        gs = to;
+        if (gs / 10 == 0)
+        {
+            break;
+        }
+    }
+    return to;
+}
 int main()
 {
-    LeftistHeap h;
-    LeftistHeap h1;
-    LeftistHeap h2;
-    int x;
-    int arr[] = {1, 5, 7, 10, 15};
-    int arr1[] = {22, 75};
 
-    h.Insert(arr[0]);
-    h.Insert(arr[1]);
-    h.Insert(arr[2]);
-    h.Insert(arr[3]);
-    h.Insert(arr[4]);
-    h1.Insert(arr1[0]);
-    h1.Insert(arr1[1]);
+    //    bool ispalindromeornot(string s, ll n)
+    //    ll factorial(ll n)
+    //    ll factorialwithmod(ll n)
+    //    bool ispoweroftwoornot(ll n)
+    //    bool isperfectsquareornot(ll x)
+    //    bool isprimeornot(ll n)
+    //    ll araisetobwithmod(ll base, ll exp)
+    //    ll araisetob(ll a, ll b)
+    //    bool powof2ornot(ll x)
+    //    ll maximumsubarraysum(vector<int>a, ll size)
+    //    ll countnoofdivisors(int n)
+    //    ll ncr(ll n, ll r)
+    //    ll araisetobwithmodeasy(ll a, ll b)
+    //    ll gcd(ll a, ll b)
+    //    void dfs(int c,vector<int>adj[],vector<int>v,vector<bool>visited,int n)
+    //    ll countnoofdivisors(int n)
+    // float rt= ((float) a/(float) c);
+    // pos[s[z]-'a'].push_back(z);
+    // to convert string to int use stoi(str)
+    // to convert int to string use to_string(int)
+    // to convert char to int use int(char)-48
 
-    h.deleteMin(x);
-    cout << x << endl;
-
-    h1.deleteMin(x);
-    cout << x << endl;
-
-    h.Merge(h1);
-    h2 = h;
-
-    h2.deleteMin(x);
-    cout << x << endl;
-
-    return 0;
+    int t;
+    cin >> t;
+    while (t--)
+    {
+       
+    }
 }

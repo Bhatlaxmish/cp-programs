@@ -1,99 +1,239 @@
+
 #include <bits/stdc++.h>
 using namespace std;
-struct node
-{
-    int data;
-    node *left, *right;
-};
-node *createroot()
-{
-    node *temp;
-    temp = new node;
-    temp->left = temp->right = NULL;
-    return temp;
-}
+#define ll long long
+#define mod 1000000007
 
-node *insertinbinarytree( node *root,int data)
+#define powe pow(2, 31)
+ll araisetobwithmod(ll base, ll exp)
 {
-    node *temp, *cur, *prev;
-    temp =createroot();
-    temp->data = data;
-    if (root == NULL)
-        return temp;
-    prev = NULL;
-    cur = root;
-    while (cur != NULL)
+    ll result = 1;
+    for (;;)
     {
-        prev = cur;
-        cur = (data <= cur->data) ? cur->left : cur->right;
+        if (exp & 1)
+            result = (result * base) % mod;
+        ;
+        exp >>= 1;
+        if (!exp)
+            break;
+        base = (base * base) % mod;
     }
 
-    if (data < prev->data)
-        prev->left = temp;
-    else
-        prev->right = temp;
-    return root;
+    return result;
+}
+ll factorialwithmod(ll n)
+{
+    if (n >= mod)
+        return 0;
+
+    ll result = 1;
+    for (int i = 1; i <= n; i++)
+        result = (result * i) % mod;
+
+    return result;
+}
+bool isprimeornot(ll n)
+{
+    if (n == 1)
+    {
+        return false;
+    }
+    ll i = 2;
+    while (i * i <= n)
+    {
+        if (n % i == 0)
+        {
+            return false;
+        }
+        i += 1;
+    }
+    return true;
 }
 
-node *insert(node *root, int data)
+ll araisetob(ll a, ll b)
 {
-    node *temp = createroot();
-    temp->data = data;
-    if (root == NULL)
+    ll ans = 1;
+    while (b > 0)
     {
-        return temp;
+        if (b & 1)
+        {
+            ans = (ans * 1LL * a);
+        }
+        a = (a * 1LL * a);
+        b >>= 1;
     }
-    if (data > root->data)
+    return ans;
+}
+bool isperfectsquareornot(ll x)
+{
+    if (sqrt(x) * sqrt(x) == x)
     {
-        root->right = insert(root->right, data);
+        return true;
     }
-    else
+    return false;
+}
+bool ispoweroftwoornot(ll n)
+{
+    if (n == 0)
+        return false;
+
+    return (ceil(log2(n)) == floor(log2(n)));
+}
+ll factorial(ll n)
+{
+
+    return (n == 1 || n == (ll)0) ? (ll)1 : n * factorial(n - 1);
+}
+ll maximumsubarraysum(vector<int> a, ll size)
+{
+    ll currmax = -1111111111, until = 0;
+
+    for (ll i = 0; i < size; i++)
     {
-        root->left = insert(root->left, data);
+        until = until + a[i];
+        if (currmax < until)
+            currmax = until;
+
+        if (until < 0)
+            until = 0;
     }
-    return root;
+    return currmax;
+}
+bool ispalindromeornot(string s, ll n)
+{
+    ll l = 0;
+    ll h = n - 1;
+    while (h > l)
+    {
+        if (s[l++] != s[h--])
+        {
+
+            return false;
+        }
+    }
+    return true;
 }
 
-void inorder(node *root)
+ll gcd(ll a, ll b)
 {
-    if (root != NULL)
+    if (b > a)
     {
-        inorder(root->left);
-        cout << root->data << " ";
-        inorder(root->right);
+        return gcd(b, a);
     }
+    if (b == 0)
+    {
+        return a;
+    }
+    return gcd(b, a % b);
 }
+
+ll araisetobwithmodeasy(ll a, ll b)
+{
+    ll res = 1;
+    while (b > 0)
+    {
+        if (b & 1)
+
+            res = (res * a) % mod;
+        a = (a * a) % mod;
+        b = b >> 1;
+    }
+    return res;
+}
+
+ll ncr(ll n, ll r)
+{
+    if (r > n || n < 0 || r < 0)
+        return 0;
+    vector<ll> fact(n + 1);
+    vector<ll> ifact(n + 1);
+    int i;
+    fact[0] = 1;
+    for (i = 1; i <= n; i++)
+    {
+        fact[i] = i * fact[i - 1] % mod;
+    }
+    i--;
+    ifact[i] = araisetobwithmod(fact[i], mod - 2);
+    for (i--; i >= 0; i--)
+    {
+        ifact[i] = ifact[i + 1] * (i + 1) % mod;
+    }
+    ll val1 = fact[n];
+    ll val2 = ifact[n - r];
+    ll val3 = ifact[r];
+    return (((val1 * val2) % mod) * val3) % mod;
+}
+
+ll countnoofdivisors(int n)
+{
+    ll cnt = 0;
+    for (int i = 1; i * i <= n; i++)
+    {
+        if (n % i == 0)
+        {
+            cnt++;
+            // cout<<i<<" ";
+            if (i != (n / i))
+            {
+                cnt++;
+                // cout<<n/i<<" ";
+            }
+        }
+    }
+    return cnt;
+}
+int rotateBinary(int number)
+{
+    int res = 0;
+    while (number > 0)
+    {
+        res = res << 1;
+        res = res | (number & 1);
+        number = number >> 1;
+    }
+    return res;
+}
+
 int main()
 {
-    cout<<"create binary tree"<<"\n";
-    node*root=NULL;
 
-    root=insert(root,3);
-    insert(root,6);
-    insert(root,2);
-    insert(root,68);
-    insert(root,5);
-    insert(root,23);
-    insert(root,7);
-    inorder(root);
-    cout<<endl;
-    cout<<root->right->left->data<<"\n";
-
-    // or
-    int n;
-    cin >> n;
-    node *head = NULL;
-    int d;
-    cin >> d;
-    head = insertinbinarytree(head, d);
-
-    for (int i = 0; i < n; i++)
+    //    bool ispalindromeornot(string s, ll n)
+    //    ll factorial(ll n)
+    //    ll factorialwithmod(ll n)
+    //    bool ispoweroftwoornot(ll n)
+    //    bool isperfectsquareornot(ll x)
+    //    bool isprimeornot(ll n)
+    //    ll araisetobwithmod(ll base, ll exp)
+    //    ll araisetob(ll a, ll b)
+    //    bool powof2ornot(ll x)
+    //    ll maximumsubarraysum(vector<int>a, ll size)
+    //    ll countnoofdivisors(int n)
+    //    ll ncr(ll n, ll r)
+    //    ll araisetobwithmodeasy(ll a, ll b)
+    //    ll gcd(ll a, ll b)
+    //    void dfs(int c,vector<int>adj[],vector<int>v,vector<bool>visited,int n)
+    //    ll countnoofdivisors(int n)
+    // float rt= ((float) a/(float) c);
+    // pos[s[z]-'a'].push_back(z);
+    // int t;
+    // cin >> t;
+    // while (t--)
     {
+        int n;
+        cin>>n;
+     vector<int>v;
+     for(int i=0;i<n;i++)
+     {
+        int r;
+        cin>>r;
+        v.push_back(r);
 
-        int data;
-        cin >> data;
-
-        head = insertinbinarytree(head, data);
+     }
+     sort(v.begin(),v.end());
+     for(auto x:v)
+     {
+        cout<<x<<" ";
+     }
     }
-    inorder(head);
 }

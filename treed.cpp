@@ -1,292 +1,227 @@
-/** C++ implementation for
-Red-Black Tree Insertion
-This code is adopted from
-the code provided by
-Dinesh Khandelwal in comments **/
+
 #include <bits/stdc++.h>
 using namespace std;
+#define ll long long
+#define mod 1000000007
 
-enum Color
+#define powe pow(2, 31)
+ll araisetobwithmod(ll base, ll exp)
 {
-    RED,
-    BLACK
-};
-
-struct Node
-{
-    int data;
-    bool color;
-    Node *left, *right, *parent;
-
-    // Constructor
-    Node(int data)
+    ll result = 1;
+    for (;;)
     {
-        this->data = data;
-        left = right = parent = NULL;
-        this->color = RED;
-    }
-};
-
-// Class to represent Red-Black Tree
-class RBTree
-{
-private:
-    Node *root;
-
-protected:
-    void rotateLeft(Node *&, Node *&);
-    void rotateRight(Node *&, Node *&);
-    void fixViolation(Node *&, Node *&);
-
-public:
-    // Constructor
-    RBTree() { root = NULL; }
-    void insert(const int &n);
-    void inorder();
-    void levelOrder();
-};
-
-// A recursive function to do inorder traversal
-void inorderHelper(Node *root)
-{
-    if (root == NULL)
-        return;
-
-    inorderHelper(root->left);
-    cout << root->data << " ";
-    inorderHelper(root->right);
-}
-
-/* A utility function to insert
-    a new node with given key
-in BST */
-Node *BSTInsert(Node *root, Node *pt)
-{
-    /* If the tree is empty, return a new node */
-    if (root == NULL)
-        return pt;
-
-    /* Otherwise, recur down the tree */
-    if (pt->data < root->data)
-    {
-        root->left = BSTInsert(root->left, pt);
-        root->left->parent = root;
-    }
-    else if (pt->data > root->data)
-    {
-        root->right = BSTInsert(root->right, pt);
-        root->right->parent = root;
+        if (exp & 1)
+            result = (result * base) % mod;
+        ;
+        exp >>= 1;
+        if (!exp)
+            break;
+        base = (base * base) % mod;
     }
 
-    /* return the (unchanged) node pointer */
-    return root;
+    return result;
 }
-
-// Utility function to do level order traversal
-void levelOrderHelper(Node *root)
+ll factorialwithmod(ll n)
 {
-    if (root == NULL)
-        return;
+    if (n >= mod)
+        return 0;
 
-    std::queue<Node *> q;
-    q.push(root);
+    ll result = 1;
+    for (int i = 1; i <= n; i++)
+        result = (result * i) % mod;
 
-    while (!q.empty())
+    return result;
+}
+bool isprimeornot(ll n)
+{
+    if (n == 1)
     {
-        Node *temp = q.front();
-        cout << temp->data << " ";
-        q.pop();
-
-        if (temp->left != NULL)
-            q.push(temp->left);
-
-        if (temp->right != NULL)
-            q.push(temp->right);
+        return false;
     }
-}
-
-void RBTree::rotateLeft(Node *&root, Node *&pt)
-{
-    Node *pt_right = pt->right;
-
-    pt->right = pt_right->left;
-
-    if (pt->right != NULL)
-        pt->right->parent = pt;
-
-    pt_right->parent = pt->parent;
-
-    if (pt->parent == NULL)
-        root = pt_right;
-
-    else if (pt == pt->parent->left)
-        pt->parent->left = pt_right;
-
-    else
-        pt->parent->right = pt_right;
-
-    pt_right->left = pt;
-    pt->parent = pt_right;
-}
-
-void RBTree::rotateRight(Node *&root, Node *&pt)
-{
-    Node *pt_left = pt->left;
-
-    pt->left = pt_left->right;
-
-    if (pt->left != NULL)
-        pt->left->parent = pt;
-
-    pt_left->parent = pt->parent;
-
-    if (pt->parent == NULL)
-        root = pt_left;
-
-    else if (pt == pt->parent->left)
-        pt->parent->left = pt_left;
-
-    else
-        pt->parent->right = pt_left;
-
-    pt_left->right = pt;
-    pt->parent = pt_left;
-}
-
-// This function fixes violations
-// caused by BST insertion
-void RBTree::fixViolation(Node *&root, Node *&pt)
-{
-    Node *parent_pt = NULL;
-    Node *grand_parent_pt = NULL;
-
-    while ((pt != root) && (pt->color != BLACK) &&
-           (pt->parent->color == RED))
+    ll i = 2;
+    while (i * i <= n)
     {
-
-        parent_pt = pt->parent;
-        grand_parent_pt = pt->parent->parent;
-
-        /* Case : A
-            Parent of pt is left child
-            of Grand-parent of pt */
-        if (parent_pt == grand_parent_pt->left)
+        if (n % i == 0)
         {
-
-            Node *uncle_pt = grand_parent_pt->right;
-
-            /* Case : 1
-            The uncle of pt is also red
-            Only Recoloring required */
-            if (uncle_pt != NULL && uncle_pt->color ==
-                                        RED)
-            {
-                grand_parent_pt->color = RED;
-                parent_pt->color = BLACK;
-                uncle_pt->color = BLACK;
-                pt = grand_parent_pt;
-            }
-
-            else
-            {
-                /* Case : 2
-                pt is right child of its parent
-                Left-rotation required */
-                if (pt == parent_pt->right)
-                {
-                    rotateLeft(root, parent_pt);
-                    pt = parent_pt;
-                    parent_pt = pt->parent;
-                }
-
-                /* Case : 3
-                pt is left child of its parent
-                Right-rotation required */
-                rotateRight(root, grand_parent_pt);
-                swap(parent_pt->color,
-                     grand_parent_pt->color);
-                pt = parent_pt;
-            }
+            return false;
         }
+        i += 1;
+    }
+    return true;
+}
 
-        /* Case : B
-        Parent of pt is right child
-        of Grand-parent of pt */
-        else
+ll araisetob(ll a, ll b)
+{
+    ll ans = 1;
+    while (b > 0)
+    {
+        if (b & 1)
         {
-            Node *uncle_pt = grand_parent_pt->left;
+            ans = (ans * 1LL * a);
+        }
+        a = (a * 1LL * a);
+        b >>= 1;
+    }
+    return ans;
+}
+bool isperfectsquareornot(ll x)
+{
+    if (sqrt(x) * sqrt(x) == x)
+    {
+        return true;
+    }
+    return false;
+}
+bool ispoweroftwoornot(ll n)
+{
+    if (n == 0)
+        return false;
 
-            /* Case : 1
-                The uncle of pt is also red
-                Only Recoloring required */
-            if ((uncle_pt != NULL) && (uncle_pt->color ==
-                                       RED))
-            {
-                grand_parent_pt->color = RED;
-                parent_pt->color = BLACK;
-                uncle_pt->color = BLACK;
-                pt = grand_parent_pt;
-            }
-            else
-            {
-                /* Case : 2
-                pt is left child of its parent
-                Right-rotation required */
-                if (pt == parent_pt->left)
-                {
-                    rotateRight(root, parent_pt);
-                    pt = parent_pt;
-                    parent_pt = pt->parent;
-                }
+    return (ceil(log2(n)) == floor(log2(n)));
+}
+ll factorial(ll n)
+{
 
-                /* Case : 3
-                pt is right child of its parent
-                Left-rotation required */
-                rotateLeft(root, grand_parent_pt);
-                swap(parent_pt->color,
-                     grand_parent_pt->color);
-                pt = parent_pt;
+    return (n == 1 || n == (ll)0) ? (ll)1 : n * factorial(n - 1);
+}
+ll maximumsubarraysum(vector<int> a, ll size)
+{
+    ll currmax = -1111111111, until = 0;
+
+    for (ll i = 0; i < size; i++)
+    {
+        until = until + a[i];
+        if (currmax < until)
+            currmax = until;
+
+        if (until < 0)
+            until = 0;
+    }
+    return currmax;
+}
+bool ispalindromeornot(string s, ll n)
+{
+    ll l = 0;
+    ll h = n - 1;
+    while (h > l)
+    {
+        if (s[l++] != s[h--])
+        {
+
+            return false;
+        }
+    }
+    return true;
+}
+
+ll gcd(ll a, ll b)
+{
+    if (b > a)
+    {
+        return gcd(b, a);
+    }
+    if (b == 0)
+    {
+        return a;
+    }
+    return gcd(b, a % b);
+}
+
+ll araisetobwithmodeasy(ll a, ll b)
+{
+    ll res = 1;
+    while (b > 0)
+    {
+        if (b & 1)
+
+            res = (res * a) % mod;
+        a = (a * a) % mod;
+        b = b >> 1;
+    }
+    return res;
+}
+
+ll ncr(ll n, ll r)
+{
+    if (r > n || n < 0 || r < 0)
+        return 0;
+    vector<ll> fact(n + 1);
+    vector<ll> ifact(n + 1);
+    int i;
+    fact[0] = 1;
+    for (i = 1; i <= n; i++)
+    {
+        fact[i] = i * fact[i - 1] % mod;
+    }
+    i--;
+    ifact[i] = araisetobwithmod(fact[i], mod - 2);
+    for (i--; i >= 0; i--)
+    {
+        ifact[i] = ifact[i + 1] * (i + 1) % mod;
+    }
+    ll val1 = fact[n];
+    ll val2 = ifact[n - r];
+    ll val3 = ifact[r];
+    return (((val1 * val2) % mod) * val3) % mod;
+}
+
+ll countnoofdivisors(int n)
+{
+    ll cnt = 0;
+    for (int i = 1; i * i <= n; i++)
+    {
+        if (n % i == 0)
+        {
+            cnt++;
+            // cout<<i<<" ";
+            if (i != (n / i))
+            {
+                cnt++;
+                // cout<<n/i<<" ";
             }
         }
     }
-
-    root->color = BLACK;
+    return cnt;
 }
-
-// Function to insert a new node with given data
-void RBTree::insert(const int &data)
+int rotateBinary(int number)
 {
-    Node *pt = new Node(data);
-
-    // Do a normal BST insert
-    root = BSTInsert(root, pt);
-
-    // fix Red Black Tree violations
-    fixViolation(root, pt);
+    int res = 0;
+    while (number > 0)
+    {
+        res = res << 1;
+        res = res | (number & 1);
+        number = number >> 1;
+    }
+    return res;
 }
 
-// Function to do inorder and level order traversals
-void RBTree::inorder() { inorderHelper(root); }
-void RBTree::levelOrder() { levelOrderHelper(root); }
-
-// Driver Code
 int main()
 {
-    RBTree tree;
 
-    tree.insert(7);
-    tree.insert(6);
-    tree.insert(5);
-    tree.insert(4);
-    tree.insert(3);
-    tree.insert(2);
-    tree.insert(1);
+    //    bool ispalindromeornot(string s, ll n)
+    //    ll factorial(ll n)
+    //    ll factorialwithmod(ll n)
+    //    bool ispoweroftwoornot(ll n)
+    //    bool isperfectsquareornot(ll x)
+    //    bool isprimeornot(ll n)
+    //    ll araisetobwithmod(ll base, ll exp)
+    //    ll araisetob(ll a, ll b)
+    //    bool powof2ornot(ll x)
+    //    ll maximumsubarraysum(vector<int>a, ll size)
+    //    ll countnoofdivisors(int n)
+    //    ll ncr(ll n, ll r)
+    //    ll araisetobwithmodeasy(ll a, ll b)
+    //    ll gcd(ll a, ll b)
+    //    void dfs(int c,vector<int>adj[],vector<int>v,vector<bool>visited,int n)
+    //    ll countnoofdivisors(int n)
+    // float rt= ((float) a/(float) c);
+    // pos[s[z]-'a'].push_back(z);
+    int t;
+    cin >> t;
+    while (t--)
+    {
 
-    cout << "Inorder Traversal of Created Tree\n";
-    tree.inorder();
 
-    cout << "\n\nLevel Order Traversal of Created Tree\n";
-    tree.levelOrder();
-
-    return 0;
+    }
+    
 }

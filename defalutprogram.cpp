@@ -1,4 +1,3 @@
-
 #include <bits/stdc++.h>
 #include <iostream>
 using namespace std;
@@ -196,6 +195,60 @@ int rotateBinary(int number)
     return res;
 }
 
+void dfs(vector<int> adj[], vector<bool> &visited, int i)
+{
+    visited[i] = true;
+    // cout<<i<<" ";
+    for (auto x : adj[i])
+    {
+        if (!visited[x])
+        {
+            dfs(adj, visited, x);
+        }
+    }
+}
+
+void SieveOfEratosthenes(ll int n)
+{
+
+    bool prime[n + 1];
+    memset(prime, true, sizeof(prime));
+
+    for (ll int p = 2; p * p <= n; p++)
+    {
+        if (prime[p] == true)
+        {
+
+            for (ll int i = p * p; i <= n; i += p)
+                prime[i] = false;
+        }
+    }
+}
+bool compi(pair<int, int> v1, pair<int, int> v2)
+{
+    return v1.second < v2.second;
+}
+int upperbound(vector<pair<int, int>> d, int r)
+{
+    ll int low = 0;
+    ll int index = -1;
+    ll int high = d.size();
+    while (low <= high)
+    {
+        ll int mid = (low + high) / 2;
+        if (d[mid].first > r)
+        {
+            index = mid;
+            high = mid - 1;
+        }
+        else
+        {
+            low = mid + 1;
+        }
+    }
+    return index;
+}
+
 int main()
 {
 
@@ -221,93 +274,7 @@ int main()
     cin >> t;
     while (t--)
     {
-        int k = 0;
-        int mi = INT_MAX;
-        string s;
-        cin >> s;
-   vector<int>array;
-        for (int i = 0; i < s.size(); i++)
-        {
-            string f = "";
-            f = f + s[i];
-            int jik = stoi(f);
-           array.push_back(jik);
-            if (jik <= mi)
-            {
-                k = i;
-                mi=jik;
-            }
-        }
-        for (int j = 0; j <=k; j++)
-        {
-            if (array[j] != mi)
-            {
-                array[j] = min(array[j] + 1, 9);
-            }
-        }
-
-mi=array[k+1];
-int uo=k+1;
-
-while((k+1)!=s.size())
-{for(int j=k+1;j<s.size();j++)
-{
-    if(array[j]<=mi)
-    {
-mi=array[j];
-uo=j;
-
-    }
-}
-for(int j=k+1 ;j<=uo;j++)
-{
-    if(array[j]!=mi)
-    {
-        array[j]=min(array[j]+1,9)
-;
-
-
-    }
-}
-mi=array[uo+1];
-k=uo;
-}
-sort(array.begin(),array.end());
-
-
-for(auto x:array)
-{
-    cout<<x;
-}
-cout<<endl;
-
-
-
-
-
-
-//         for (int j = 0; j <= k; j++)
-//         {
-//             if(s[j]!=s[k])
-//            { string f="";
-//             f=f+s[j];
-//             int jik=stoi(f);
-      
-//             jik = min(jik + 1, 9);
-           
-//             string er = to_string(jik);
-//             s[j] = er[0];
-//           }
-
-// }
-// sort(s.begin(),s.begin()+k+1);
-// cout<<s<<"\n";
-
-
-
-
-
-
+        
 
     }
 }

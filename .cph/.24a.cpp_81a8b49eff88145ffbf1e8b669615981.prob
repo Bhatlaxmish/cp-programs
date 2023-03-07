@@ -1,1 +1,1 @@
-{"name":"Local: 24a","url":"/home/lakshmish/DSA PROGRAMS/24a.cpp","tests":[],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/lakshmish/DSA PROGRAMS/24a.cpp","group":"local","local":true}
+{"name":"Local: 24a","url":"/home/lakshmish/DSA PROGRAMS/24a.cpp","tests":[{"id":1677901685404,"input":"5\n8 5\n2 1 7 4\n4 2\n5 4\n2 2 5 4\n3 3\n1 8\n0 3 1 6\n1 5\n8 1\n3 0 6 1\n5 1\n8 10\n4 5 7 8\n8 5","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/lakshmish/DSA PROGRAMS/24a.cpp","group":"local","local":true}

@@ -1,0 +1,1 @@
+{"name":"Local: coding","url":"/home/lakshmish/DSA PROGRAMS/coding.py","tests":[{"id":1669964825262,"input":"3\n4\n3 1 5 3\n3\n3 2 1\n1\n7331","output":"YES\nNO\nYES"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/lakshmish/DSA PROGRAMS/coding.py","group":"local","local":true}

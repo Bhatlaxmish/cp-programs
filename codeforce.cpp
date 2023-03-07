@@ -1,5 +1,6 @@
 
 #include <bits/stdc++.h>
+#include <iostream>
 using namespace std;
 #define ll long long
 #define mod 1000000007
@@ -216,10 +217,14 @@ int main()
     //    ll countnoofdivisors(int n)
     // float rt= ((float) a/(float) c);
     // pos[s[z]-'a'].push_back(z);
-    // int t;
-    // cin >> t;
-    // while (t--)
+    int t;
+    cin >> t;
+    while (t--)
     {
 
+
+            
+
+       
     }
 }

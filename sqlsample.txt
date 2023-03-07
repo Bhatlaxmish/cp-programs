@@ -1,0 +1,216 @@
+ CUSTOMER
+
+ CUST_CODE
+ CUST_NAME
+ CUST_CITY
+ WORKING_AREA
+ CUST_COUNTRY
+ GRADE
+ OPENING_AMT
+ RECEIVE_AMT
+ PAYMENT_AMT
+ OUTSTANDING_AMT
+ PHONE_NO
+ AGENT_CODE
+
+ORDERS
+
+  ORD_NUM
+ ORD_AMOUNT
+ ADVANCE_AMOUNT
+ ORD_DATE
+ CUST_CODE
+ AGENT_CODE
+ ORD_DESCRIPTION
+
+
+AGENTS
+
+ AGENT_CODE
+ AGENT_NAME
+ WORKING_AREA
+ COMMISSION
+ PHONE_NO
+ COUNTRY
+
+
+EMPLOYEE
+
+ SSN
+ NAME
+ ADDRESS
+ SEX
+ SALARY
+ SUPERSSN
+ DNO
+
+ PROJECTS
+
+  PNO
+ PNAME
+ PLOCATION
+ DNO
+
+ CREATE DATABASE /*!32312 IF NOT EXISTS*/classicmodels /*!40100 DEFAULT CHARACTER SET latin1 */;
+
+USE classicmodels;
+
+/*Table structure for table customers */
+
+DROP TABLE IF EXISTS customers;
+
+CREATE TABLE offices (
+  officeCode varchar(10) NOT NULL,
+  city varchar(50) NOT NULL,
+  phone varchar(50) NOT NULL,
+  addressLine1 varchar(50) NOT NULL,
+  addressLine2 varchar(50) DEFAULT NULL,
+  state varchar(50) DEFAULT NULL,
+  country varchar(50) NOT NULL,
+  postalCode varchar(15) NOT NULL,
+  territory varchar(10) NOT NULL,
+  PRIMARY KEY (officeCode)
+);
+CREATE TABLE orders (
+  orderNumber int(11) NOT NULL,
+  orderDate date NOT NULL,
+  requiredDate date NOT NULL,
+  shippedDate date DEFAULT NULL,
+  status varchar(15) NOT NULL,
+  comments text,
+  customerNumber int(11) NOT NULL,
+  PRIMARY KEY (orderNumber));
+ 
+ 
+CREATE TABLE orderdetails (
+  orderNumber int(11) NOT NULL,
+  productCode varchar(15) NOT NULL,
+  quantityOrdered int(11) NOT NULL,
+  priceEach decimal(10,2) NOT NULL,
+  orderLineNumber smallint(6) NOT NULL,
+  PRIMARY KEY (orderNumber,productCode));
+
+CREATE TABLE payments (
+  customerNumber int(11) NOT NULL,
+  checkNumber varchar(50) NOT NULL,
+  paymentDate date NOT NULL,
+  amount decimal(10,2) NOT NULL,
+  PRIMARY KEY (customerNumber,checkNumber));
+
+CREATE TABLE productlines (
+  productLine varchar(50) NOT NULL,
+  textDescription varchar(4000) DEFAULT NULL,
+  htmlDescription mediumtext,
+  image mediumblob,
+  PRIMARY KEY (productLine)
+) ;
+
+
+CREATE TABLE products (
+  productCode varchar(15) NOT NULL,
+  productName varchar(70) NOT NULL,
+  productLine varchar(50) NOT NULL,
+  productScale varchar(10) NOT NULL,
+  productVendor varchar(50) NOT NULL,
+  productDescription text NOT NULL,
+  quantityInStock smallint(6) NOT NULL,
+  buyPrice decimal(10,2) NOT NULL,
+  MSRP decimal(10,2) NOT NULL,
+  PRIMARY KEY (productCode));
+
+ customers
+
+ customerNumber
+customerName
+contactLastName
+contactFirstName
+phone
+addressLine1
+addressLine2
+city
+state
+postalCode
+country
+salesRepEmployeeNumber
+creditLimit
+
+ employees
+ employeeNumber
+lastName
+firstName
+extension
+email
+officeCode
+report
+jobTitle
+
+
+offices
+
+
+officeCode
+city
+phone
+addressLine1
+addressLine2
+state
+country
+postalCode
+territory
+
+
+
+ orderdetails
+
+
+ orderNumber
+productCode
+quantityOrdered
+priceEach
+orderLineNumber
+
+
+
+ orders
+ orderNumber
+orderDate
+requiredDate
+shippedDate
+status
+comments
+customerNumber
+
+
+
+payments
+
+
+customerNumber
+checkNumber
+paymentDate
+amount
+
+
+
+productlines;
+
+
+productLine
+textDescription
+htmlDescription
+image
+
+
+
+products
+
+
+productCode
+productName
+productLine
+productScale
+productVendor
+productDescription
+quantityInStock
+buyPrice
+MSRP

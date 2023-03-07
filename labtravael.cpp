@@ -194,26 +194,24 @@ int rotateBinary(int number)
     }
     return res;
 }
-void merge(vector<int> v, int low, int high)
-{
 
-    cout << low << " " << high << "\n";
-    for (int i = low; i < high; i++)
-    {
-        cout << v[i] << " ";
-    }
-    cout << endl;
-}
-
-void divide(vector<int> v, int low, int high)
+bool dfs(list<int> adj[], vector<bool> &visited, int i)
 {
-    while (low < high)
+    if (!visited[i])
     {
-        int mid = (low + high) / 2;
-        divide(v, low, mid);
-        divide(v, mid + 1, high);
-        merge(v, low, high);
+        visited[i] = true;
+        for (auto c : adj[i])
+        {
+            if (!visited[c])
+            {
+                dfs(adj, visited, c);
+            }
+              
+        }
+        return true;
     }
+    else
+        return false;
 }
 
 int main()
@@ -222,12 +220,12 @@ int main()
     //    bool ispalindromeornot(string s, ll n)
     //    ll factorial(ll n)
     //    ll factorialwithmod(ll n)
-    //    bool ispoweroftwoornot((ll n)
+    //    bool ispoweroftwoornot(ll n)
     //    bool isperfectsquareornot(ll x)
     //    bool isprimeornot(ll n)
     //    ll araisetobwithmod(ll base, ll exp)
     //    ll araisetob(ll a, ll b)
-    //    bool powoftwornot(ll x)
+    //    bool powof2ornot(ll x)
     //    ll maximumsubarraysum(vector<int>a, ll size)
     //    ll countnoofdivisors(int n)
     //    ll ncr(ll n, ll r)
@@ -237,69 +235,57 @@ int main()
     //    ll countnoofdivisors(int n)
     // float rt= ((float) a/(float) c);
     // pos[s[z]-'a'].push_back(z);
-    int t;
-    cin >> t;
-    while (t--)
+    // int t;
+    // cin >> t;
+    // while (t--)
     {
-        int flag = 0;
-        vector<string> s;
-        for (int i = 0; i < 8; i++)
+        int n;
+        cin >> n;
+        int count = 0;
+        list<int> adj[n + 1], adj2[n + 1],ans[n+1];
+        int m1, m2;
+        cin >> m1 >> m2;
+        for (int i = 0; i < m1; i++)
         {
-            string se;
-            cin >> se;
-            s.push_back(se);
+            int a, b;
+            cin >> a >> b;
+            adj[a].push_back(b);
+            adj[b].push_back(a);
         }
-
-        for (int i = 0; i < 8; i++)
+        for (int j = 0; j < m2; j++)
         {
-            if (s[i] == "RRRRRRRR")
-            {
-                flag = 1;
-                cout << 'R' << "\n";
-                break;
-            }
-            else if (s[i] == "BBBBBBBB")
-            {
-                cout << 'B' << "\n";
-                flag = 1;
-                break;
-            }
+            int a, b;
+            cin >> a >> b;
+            adj2[a].push_back(b);
+            adj2[b].push_back(a);
         }
-
-
-
-
-
-
-
-
-
-
-
-        if (flag == 0)
+        for (int i = 1; i <= n; i++)
         {
-            for (int i = 0; i < 8; i++)
+            for (int j = i + 1; j <= n; j++)
             {
-                int count = 0, coutnt = 0;
-                for (int j = 0; j < 8; j++)
+
+                if (find(adj[i].begin(), adj[i].end(), j) == adj[i].end())
                 {
-                    if (s[j][i] == 'B')
+                    adj[i].push_back(j);
+                    adj[j].push_back(i);
+                    ans[i].push_back(j);
+                    cout<<i<<" "<<j<<"\n";
+                    vector<bool> visited(n + 1, false);
+                    bool tr = dfs(adj, visited, i);
+                    // cout<<tr<<"\n";
+                    if (tr == true)
                     {
-
+                        cout<<tr<<"\n";
                         count++;
                     }
-
                     else
                     {
-                        break;
+                        adj[i].remove(j);
+                        adj[j].remove(i);
                     }
-                }
-                if (count == 8)
-                {
-                    cout << 'B' << "\n";
-                    break;
                 }
             }
         }
+        cout << count << "\n";
     }
 }

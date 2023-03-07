@@ -1,5 +1,12 @@
 import math
 
+"""  range, isnumeric,
+print backwords, max min """
+
+
+
+
+
 #  isnumeric used to check numerical values
 string = "3505353-rtir-258454358"
 st = ""

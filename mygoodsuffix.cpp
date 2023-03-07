@@ -195,7 +195,6 @@ int rotateBinary(int number)
     return res;
 }
 
-
 int main()
 {
 
@@ -221,20 +220,6 @@ int main()
     cin >> t;
     while (t--)
     {
-       
-
-
-
-
+        
     }
 }
-
-
-
-
-
-
-
-
-
-

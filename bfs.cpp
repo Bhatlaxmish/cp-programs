@@ -195,6 +195,26 @@ int rotateBinary(int number)
     return res;
 }
 
+int compi(pair<int, int> v3, pair<int, int> v2)
+{
+    return v3.second < v2.second;
+}
+
+void dfs(list<int> adj[], vector<bool> &visited, int i)
+{
+    visited[i] = true;
+  
+    for (auto x : adj[i])
+    {
+
+        if (!visited[x])
+        {
+            dfs( adj, visited,x);
+        }
+    }
+    cout << i << " ";
+}
+
 int main()
 {
 
@@ -212,49 +232,45 @@ int main()
     //    ll ncr(ll n, ll r)
     //    ll araisetobwithmodeasy(ll a, ll b)
     //    ll gcd(ll a, ll b)
-    //    void dfs(int c,vector<int>adj[],vector<int>v,vector<bool>visited,int n)
     //    ll countnoofdivisors(int n)
     // float rt= ((float) a/(float) c);
     // pos[s[z]-'a'].push_back(z);
-    int t;
-    cin >> t;
-    while (t--)
+    // to convert string to int use stoi(str)
+    // to convert int to string use to_string(int)
+    // to convert char to int use int(char)-48
+    // int t;
+    // cin >> t;
+    // while (t--)
     {
- 
-        int n;
-        cin>>n;
-        vector<int>v;
-        for(int i=0;i<n;i++)
+    int n,m;
+    cin>>n>>m;
+    list<int>adj[n+1];
+    for(int i=0;i<m;i++)
+    {
+        int r,s;
+        cin>>r>>s;
+        adj[r].push_back(s);
+        adj[s].push_back(r);
+    }
+    vector<bool>visited(n+1,false);
+   dfs(adj,visited,1);
+    int q;
+    cin>>q;
+    for(int i=0;i<n;i++)
+    {
+        int r;
+        cin>>r;
+        if(r==3)
         {
-            int r;
-            cin>>r;
-            v.push_back(r);
+            cout<<1<<"\n";
         }
-int k=0;
-int sum=0;
-  for(int i=0;i<n;i++)
-  {
-    if(v[i]>k)
-    {
-k++;
-    }
-    
         else {
-sum=sum+(k*(k+1))/2;
-if(v[i]>0)
-k=1;
-else k=0;
+            int o,el;
+            cin>>o>>el;
+
         }
-    
-  }   
-  if(k>0)
-  
-  {
-      sum = sum + (k * (k + 1)) / 2;
-  }
-  cout<<sum<<"\n";   
-        
-
-
     }
+
+
+}
 }

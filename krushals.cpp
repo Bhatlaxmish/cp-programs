@@ -220,26 +220,6 @@ int main()
     cin >> t;
     while (t--)
     {
-int n,m;cin>>n>>m;
-if(n==1||m==1)
-{
-    if(n==1&&m%2!=0)
-    {
-        cout<<0<<"\n";
-    }
-    else if(m==1&&n%2!=0)
-    {
-        cout<<0<<"\n";
-    }
-    else cout<<2<<"\n";
-    
-}
-else if(n==2&&m==2)
-{
-    cout<<0<<"\n";
-}
-else {
-}
-cout << factorial(n);
+
     }
 }

@@ -195,7 +195,6 @@ int rotateBinary(int number)
     return res;
 }
 
-
 int main()
 {
 
@@ -219,22 +218,9 @@ int main()
     // pos[s[z]-'a'].push_back(z);
     int t;
     cin >> t;
+
     while (t--)
     {
-       
-
-
-
-
+        
     }
 }
-
-
-
-
-
-
-
-
-
-

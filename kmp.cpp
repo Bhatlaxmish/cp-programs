@@ -221,47 +221,6 @@ int main()
     while(t--)
 
     {
-        int n;
-        cin>>n;
-       
-vector<int>v,hj;
-for(int i=0;i<n;i++)
-{
-    int r;
-    cin>>r;
-    v.push_back(r);
-}
-
-map<int,int>dj;
-if(is_sorted(v.begin(),v.end())){
-for(int i=0;i<n;i++)
-{
-    cout<<1<<" ";
-}
-cout<<endl;
-}
-else {
-    for(int i=0;i<n;i++)
-    {
-dj[v[i]]=i+1;
-    }
-for(auto x:dj)
-{
-    hj.push_back(x.second);
-}
-reverse(hj.begin(),hj.end());
-for(auto x:hj)
-{
-    cout<<x<<" ";
-}
-
-  cout<<endl;
-}
-
-
-
-
-
 
     }
 }

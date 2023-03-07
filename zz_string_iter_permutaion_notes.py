@@ -1,3 +1,22 @@
+
+""" string operations form 0 to 9 every 3 steps,
+reverse a string 
+using format to print
+
+using iter 
+permutations 
+combinations
+print upto 3 precesion
+
+
+
+"""
+
+
+
+
+
+
 from traceback import print_list
 # import itertools
 
@@ -77,7 +96,7 @@ for i in range(len(cars)):
    
             
     # using dictionnary
-d={"what":"are","now":"notnow"};
+d={"what":"are","now":"notnow"}
 for i ,j in d.items():
     print(i,j)
      

@@ -1,50 +1,59 @@
-#include<iostream>
-#include<bits/stdc++.h>
+
+#include <bits/stdc++.h>
+#include <iostream>
 using namespace std;
-struct node{
-int data;
-node*left,*right;
-};
+// int dp[100000]={};
 
-node* constructbst(int high, node *head, vector<int> v, int low)
-
+bool compi(pair<int,int>v2,pair<int,int>p3)
 {
-    
-    if(low>high)
-    {
-        return NULL;
-    }
-   
-
-  int mid=(low+high)/2;  
-head->data=v[mid];
-head->left = constructbst(high, head, v, mid + 1);
-head->right = constructbst(mid - 1, head, v, mid - 1);
-return head;
-    
-   
- }
- void inorder(node*root)
- {
-if(root!=NULL)
-{
-    inorder(root->left);
-    cout<<root->data;
-    inorder(root->right);
+    return v2.second<p3.second;
 }
- }
 int main()
 {
-node*root=NULL;
-int n;
-cin>>n;
-vector<int>v;
-for(int i=0;i<n;i++)
-{
-    int r;
-    cin>>r;
-    v.push_back(r);
-}
-root=constructbst(n,root,v,0);
-inorder(root);
+    
+   int t;
+   cin>>t;
+   while(t--)
+   {
+    int n;
+    cin>>n;
+    vector<pair<int, string>> v;
+    for(int i=0;i<2*n-2;i++)
+    {
+string s;
+cin>>s;
+v.push_back({s.size(),s});
+    }
+    sort(v.rbegin(),v.rend());
+    // for(auto x:v)
+    // {
+    //     cout<<x.first<<" "<<x.second<<"\n";
+    // }
+    string fr=v[0].second;
+    string fe=v[1].second;
+    int gh = 0;
+
+    for(int i=0;i<fe.size();i++)
+    {
+        if(fe[i]==fr[0])
+        {
+            break;
+        }
+    }
+
+   
+    
+
+
+
+
+
+
+   } 
+    
+    
+    
+  
+
+   
 }
